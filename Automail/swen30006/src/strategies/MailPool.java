@@ -73,9 +73,11 @@ public class MailPool implements IMailPool {
 		ListIterator<Item> j = pool.listIterator();
 		if (pool.size() > 0) {
 			try {
-			robot.addToHand(j.next().mailItem); // hand first as we want higher priority delivered first
+			MailItem mailitem = j.next().mailItem;
+			robot.addToHand(mailitem); // hand first as we want higher priority delivered first
 			j.remove();
-			if (pool.size() > 0) {
+			if (pool.size() > 0 && !(mailitem instanceof PriorityMailItem && robot.mode.carryCapacity == 1)) { //*********************************************************************************************************************
+				//
 				robot.addToTube(j.next().mailItem);
 				j.remove();
 			}
