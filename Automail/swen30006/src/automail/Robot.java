@@ -164,7 +164,7 @@ public class Robot {
 		case DELIVERING:
 			if(current_floor == destination_floor){ // If already here drop off either way
                 /** Delivery complete, report this to the simulator! */
-				stats.updateStats(mode instanceof Overdrive, deliveryItem.getWeight());
+				stats.updateStats(deliveryItem instanceof PriorityMailItem, deliveryItem.getWeight());
                 delivery.deliver(deliveryItem);
                 deliveryItem = null;
                 deliveryCounter++;
