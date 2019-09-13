@@ -3,6 +3,7 @@ package automail;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
+import strategies.StatsTracker;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -29,6 +30,7 @@ public class Robot {
     
     private int deliveryCounter;
     public Mode mode;
+    private StatsTracker stats;
     
 
     /**
@@ -48,6 +50,7 @@ public class Robot {
         this.receivedDispatch = false;
         this.deliveryCounter = 0;
         this.mode = new Normal();
+        this.stats = StatsTracker.getInstance();
     }
     
     public Robot(IMailDelivery delivery, IMailPool mailPool, Mode mode){
@@ -60,6 +63,7 @@ public class Robot {
         this.receivedDispatch = false;
         this.deliveryCounter = 0;
         this.mode = mode;
+        this.stats = StatsTracker.getInstance();
     }
     
     public void dispatch() {
@@ -160,7 +164,7 @@ public class Robot {
 		case DELIVERING:
 			if(current_floor == destination_floor){ // If already here drop off either way
                 /** Delivery complete, report this to the simulator! */
-				mailDelivered(mode instanceof Overdrive, deliveryItem.weight);
+				stats.updateStats(mode instanceof Overdrive, deliveryItem.getWeight());
                 delivery.deliver(deliveryItem);
                 deliveryItem = null;
                 deliveryCounter++;
@@ -194,16 +198,6 @@ public class Robot {
     		mode = new Overdrive(1, 2, 5);
     }
     
-    
-    public void mailDelivered(boolean overdrive, int weight) {
-//    	
-//    	
-//    	!!!!!!!!!NEEDS TO BE IMPLEMENTED WITH THE STATSTRACKER!!!!!!!!!!!!!
-//    	
-//    	
-    }
-
-
     /**
      * Sets the route for the robot
      */
