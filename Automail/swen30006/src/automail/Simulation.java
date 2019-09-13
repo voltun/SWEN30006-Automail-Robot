@@ -102,7 +102,7 @@ public class Simulation {
         Automail automail = new Automail(mailPool, new ReportDelivery(), robots);
         MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.mailPool, seedMap);
         
-        OVERDRIVE_ENABLED = true;
+        //OVERDRIVE_ENABLED = true;
         if(OVERDRIVE_ENABLED) {
         	for(Robot robot: automail.robots) {
         		robot.changeMode(ModeType.OVERDRIVE);
