@@ -1,3 +1,4 @@
+
 package strategies;
 
 import automail.IMailDelivery;

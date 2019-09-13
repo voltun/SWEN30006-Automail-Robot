@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import automail.Robot.ModeType;
+
 /**
  * This class simulates the behaviour of AutoMail
  */
@@ -99,6 +101,13 @@ public class Simulation {
         System.out.println("Seed: " + (seed == null ? "null" : seed.toString()));
         Automail automail = new Automail(mailPool, new ReportDelivery(), robots);
         MailGenerator mailGenerator = new MailGenerator(MAIL_TO_CREATE, MAIL_MAX_WEIGHT, automail.mailPool, seedMap);
+        
+        //OVERDRIVE_ENABLED = true;
+        if(OVERDRIVE_ENABLED) {
+        	for(Robot robot: automail.robots) {
+        		robot.changeMode(ModeType.OVERDRIVE);
+        	}
+        }
         
         /** Initiate all the mail */
         mailGenerator.generateAllMail();
