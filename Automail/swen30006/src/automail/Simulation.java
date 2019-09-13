@@ -6,6 +6,7 @@ import exceptions.MailAlreadyDeliveredException;
 import strategies.Automail;
 import strategies.IMailPool;
 import strategies.MailPool;
+import strategies.StatsTracker;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -165,6 +166,7 @@ public class Simulation {
     public static void printResults(){
         System.out.println("T: "+Clock.Time()+" | Simulation complete!");
         System.out.println("Final Delivery time: "+Clock.Time());
+        System.out.println(StatsTracker.getInstance().toString());
         System.out.printf("Final Score: %.2f%n", total_score);
     }
 }
